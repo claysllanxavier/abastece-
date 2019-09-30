@@ -5,7 +5,7 @@ import {
 
 const fonts = {
   input: hp('3.5%'),
-  regular: hp('3%'),
+  regular: hp('2.5%'),
   medium: hp('2%'),
   small: hp('1.5%'),
   tiny: hp('1%'),

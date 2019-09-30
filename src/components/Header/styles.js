@@ -1,19 +1,35 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { metrics, colors, fonts } from '~/styles';
+import LinearGradient from 'react-native-linear-gradient';
 
-export const Container = styled.View`
+import { metrics, colors, fonts } from '~/styles';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+export const Linear = styled(LinearGradient)`
+  align-items: flex-start;
+  border-bottom-width: 1px;
+  border-bottom-color: #fff;
+  height: ${hp('30%')};
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  flex: 1;
   flex-direction: row;
 `;
 
-export const Info = styled.View`
+export const Info = styled.SafeAreaView`
   flex-direction: column;
-  margin-left: ${metrics.doubleBaseMargin};
+  margin-left: ${wp('9%')};
+  margin-top: ${metrics.navBarHeight};
 `;
 
 export const Text = styled.Text`
-  color: ${colors.dark};
-  font-size: ${fonts.small};
+  color: ${colors.white};
+  font-size: ${fonts.medium};
 `;
 
 export const CityBox = styled.View`
@@ -21,8 +37,8 @@ export const CityBox = styled.View`
 `;
 
 export const CityText = styled.Text`
-  color: ${colors.darker};
-  font-size: ${fonts.medium};
+  color: ${colors.white};
+  font-size: ${fonts.regular};
   font-weight: bold;
 `;
 

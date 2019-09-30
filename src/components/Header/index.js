@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { ActionSheetIOS } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { ActionSheetIOS, View } from 'react-native';
 import { colors } from '~/styles';
-import { Container, Info, Text, CityBox, CityText, CityIcon } from './styles';
+import { Linear, Info, Text, CityBox, CityText, CityIcon } from './styles';
 
 export default class Header extends Component {
   handleCity = () => {
@@ -25,21 +24,25 @@ export default class Header extends Component {
 
   render() {
     return (
-      <Container>
-        <Icon name="gas-pump" size={40} color={colors.morderatered} />
-        <Info>
-          <Text>Cidade</Text>
-          <CityBox>
-            <CityText>Palmas - TO</CityText>
-            <CityIcon
-              name="chevron-down"
-              color={colors.morderatered}
-              backgroundColor={colors.transparent}
-              onPress={this.handleCity}
-            />
-          </CityBox>
-        </Info>
-      </Container>
+      <View>
+        <Linear
+          colors={['#ff9966', '#ff5e62']}
+          start={{ x: 0.0, y: 0.25 }}
+          end={{ x: 0.5, y: 1.0 }}>
+          <Info>
+            <Text>Cidade</Text>
+            <CityBox>
+              <CityText>Palmas - TO</CityText>
+              <CityIcon
+                name="chevron-down"
+                color="#FF3338"
+                backgroundColor={colors.transparent}
+                onPress={this.handleCity}
+              />
+            </CityBox>
+          </Info>
+        </Linear>
+      </View>
     );
   }
 }

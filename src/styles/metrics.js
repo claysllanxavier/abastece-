@@ -7,10 +7,11 @@ export default {
   baseMargin: 10,
   doubleBaseMargin: 20,
   basePadding: 20,
-  baseRadius: 3,
+  doubleBasePadding: 40,
+  baseRadius: 10,
   tabBarHeight: 54,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
-  navBarHeight: Platform.OS === 'ios' ? getStatusBarHeight() + 54 : 54,
+  navBarHeight: Platform.OS === 'ios' ? getStatusBarHeight() + 30 : 30,
   statusBarHeight: Platform.OS === 'ios' ? 20 : 0,
 };
