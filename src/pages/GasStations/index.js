@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import Header from '~/components/Header';
-import { Container, SpaceMargin, CardTitle, Title, Search } from './styles';
+import { Container, SpaceMargin, CardTitle, Title } from './styles';
 import GasItem from '~/components/GasItem';
 
 export default class GasStations extends Component {

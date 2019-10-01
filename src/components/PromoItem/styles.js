@@ -1,9 +1,6 @@
 import styled from 'styled-components/native';
 import { metrics } from '~/styles';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   padding: ${metrics.basePadding}px;
