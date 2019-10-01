@@ -12,7 +12,7 @@ export const Linear = styled(LinearGradient)`
   align-items: flex-start;
   border-bottom-width: 1px;
   border-bottom-color: #fff;
-  height: ${hp('30%')};
+  height: ${props => (props.fit ? hp('23%') : hp('32%'))};
   position: absolute;
   left: 0;
   top: 0;

@@ -56,3 +56,9 @@ export const Price = styled.Text`
   color: ${colors.morderatered};
   font-weight: bold;
 `;
+
+export const ViewPrice = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;

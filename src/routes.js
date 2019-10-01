@@ -19,7 +19,7 @@ const GassStack = createStackNavigator({
   GasStations: {
     screen: GasStations,
     navigationOptions: ({ navigation }) => ({
-      title: 'Postos de Gasolina',
+      header: null,
     }),
   },
   GasDetail: GasDetail,

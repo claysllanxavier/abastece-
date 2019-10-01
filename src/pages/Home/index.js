@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import Header from '~/components/Header';
 import LastPromoItem from '~/components/LastPromoItem';
-import LastGasItem from '~/components/LastGasItem';
+import GasItem from '~/components/GasItem';
 import {
   Container,
   SpaceMargin,
@@ -74,7 +74,7 @@ export default class Home extends Component {
           <GasText>Postos Mais Baratos</GasText>
           <FlatList
             data={gasStations}
-            renderItem={({ item }) => <LastGasItem data={item} />}
+            renderItem={({ item }) => <GasItem data={item} />}
             keyExtractor={item => item.id.toString()}
           />
         </SpaceMargin>

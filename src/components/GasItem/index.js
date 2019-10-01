@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
 import {
   Container,
   Row,
@@ -13,9 +12,10 @@ import {
   Address,
   Price,
   Real,
+  ViewPrice,
 } from './styles';
 
-class LastGasItem extends Component {
+class GasItem extends Component {
   render() {
     const { data } = this.props;
 
@@ -32,10 +32,10 @@ class LastGasItem extends Component {
                 </Address>
               </Info>
             </Box>
-            <View style={{ flexDirection: 'row' }}>
+            <ViewPrice>
               <Real>R$</Real>
               <Price>4,299</Price>
-            </View>
+            </ViewPrice>
           </Row>
         </Container>
       </TouchableWithoutFeedback>
@@ -43,11 +43,11 @@ class LastGasItem extends Component {
   }
 }
 
-LastGasItem.propTypes = {
+GasItem.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
 };
-export default LastGasItem;
+export default GasItem;
