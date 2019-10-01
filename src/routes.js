@@ -26,7 +26,12 @@ const GassStack = createStackNavigator({
 });
 
 const PromoStack = createStackNavigator({
-  Promos: Promos,
+  Promos: {
+    screen: Promos,
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+    }),
+  },
   PromoDetail: PromoDetail,
 });
 

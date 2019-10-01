@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import Header from '~/components/Header';
-import LastPromoItem from '~/components/LastPromoItem';
+import PromoItem from '~/components/PromoItem';
 import GasItem from '~/components/GasItem';
 import {
   Container,
@@ -67,7 +67,7 @@ export default class Home extends Component {
             <FlatList
               data={data}
               horizontal={true}
-              renderItem={({ item }) => <LastPromoItem data={item} />}
+              renderItem={({ item }) => <PromoItem data={item} />}
               keyExtractor={item => item.id.toString()}
             />
           </CardPromo>

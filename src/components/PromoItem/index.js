@@ -6,23 +6,23 @@ import PropTypes from 'prop-types';
 
 import { Container, ItemImage } from './styles';
 
-class LastPromoItem extends Component {
+class PromoItem extends Component {
   render() {
-    const { data } = this.props;
+    const { data, big } = this.props;
     return (
       <TouchableWithoutFeedback onPress={() => {}}>
         <Container>
-          <ItemImage source={{ uri: data.banner_url }} />
+          <ItemImage big={big} source={{ uri: data.banner_url }} />
         </Container>
       </TouchableWithoutFeedback>
     );
   }
 }
 
-LastPromoItem.propTypes = {
+PromoItem.propTypes = {
   data: PropTypes.shape({
     banner_url: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default LastPromoItem;
+export default PromoItem;
