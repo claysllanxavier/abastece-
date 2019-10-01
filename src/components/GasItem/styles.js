@@ -49,6 +49,7 @@ export const Real = styled.Text`
   font-size: ${fonts.tiny}px;
   font-weight: bold;
   color: ${colors.darker};
+  align-self: flex-start;
 `;
 
 export const Price = styled.Text`
@@ -58,7 +59,11 @@ export const Price = styled.Text`
 `;
 
 export const ViewPrice = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+`;
+
+export const Information = styled.Text`
+  font-size: ${fonts.tiny};
 `;

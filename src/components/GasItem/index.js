@@ -13,6 +13,7 @@ import {
   Price,
   Real,
   ViewPrice,
+  Information,
 } from './styles';
 
 class GasItem extends Component {
@@ -35,6 +36,7 @@ class GasItem extends Component {
             <ViewPrice>
               <Real>R$</Real>
               <Price>4,299</Price>
+              <Information>Há 1 dia</Information>
             </ViewPrice>
           </Row>
         </Container>
