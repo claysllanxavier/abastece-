@@ -11,10 +11,6 @@ import Maps from '~/pages/Maps';
 import Promos from '~/pages/Promos';
 import PromoDetail from '~/pages/Promos/PromoDetail';
 
-const MapsStack = createStackNavigator({
-  Maps: Maps,
-});
-
 const GassStack = createStackNavigator({
   GasStations: {
     screen: GasStations,
@@ -47,9 +43,10 @@ const Routes = createAppContainer(
       },
     },
     Map: {
-      screen: MapsStack,
+      screen: Maps,
       navigationOptions: {
         tabBarLabel: 'Mapa',
+        header: null,
         tabBarIcon: ({ tintColor }) => (
           <Icon name="location-arrow" size={20} color={tintColor} />
         ),
