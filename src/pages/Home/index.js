@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import Header from '~/components/Header';
 import PromoItem from '~/components/PromoItem';
 import GasItem from '~/components/GasItem';
@@ -71,13 +71,13 @@ export default class Home extends Component {
               keyExtractor={item => item.id.toString()}
             />
           </CardPromo>
-          <GasText>Postos Mais Baratos</GasText>
-          <FlatList
-            data={gasStations}
-            renderItem={({ item }) => <GasItem data={item} />}
-            keyExtractor={item => item.id.toString()}
-          />
         </SpaceMargin>
+        <GasText>Postos Mais Baratos</GasText>
+        <FlatList
+          data={gasStations}
+          renderItem={({ item }) => <GasItem data={item} />}
+          keyExtractor={item => item.id.toString()}
+        />
       </Container>
     );
   }
