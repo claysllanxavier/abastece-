@@ -33,7 +33,7 @@ export const TextPromo = styled.Text`
 export const GasText = styled.Text`
   color: ${colors.morderatered};
   font-size: ${fonts.regular};
-  margin-top: ${metrics.doubleBaseMargin};
+  margin-top: ${metrics.baseMargin};
   text-align: left;
   padding-left: ${metrics.basePadding};
 `;
