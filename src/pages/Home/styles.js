@@ -11,7 +11,7 @@ export const Container = styled.View`
 `;
 
 export const SpaceMargin = styled.View`
-  margin-top: ${hp('17%')};
+  margin-top: ${hp('12%')};
 `;
 
 export const CardPromo = styled.View`

@@ -20,6 +20,6 @@ export default {
   //Color Schema
   lightcyan: '#f4f6f6',
   lightred: '#ff9c91',
-  morderatered: '#cd3f3e',
+  morderatered: '#ff5e62',
   verydark: '#1c2938',
 };

@@ -37,7 +37,7 @@ export default class Header extends Component {
               <CityText>Palmas - TO</CityText>
               <CityIcon
                 name="chevron-down"
-                color="#FF3338"
+                color="#fff"
                 backgroundColor={colors.transparent}
                 onPress={this.handleCity}
               />
