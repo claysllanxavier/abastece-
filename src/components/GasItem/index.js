@@ -14,6 +14,7 @@ import {
   Real,
   ViewPrice,
   Information,
+  TinyPrice,
 } from './styles';
 
 const GasItem = ({ data }) => {
@@ -32,8 +33,10 @@ const GasItem = ({ data }) => {
           </Box>
           <ViewPrice>
             <Real>R$</Real>
-            <Price>4,299</Price>
-            <Information>Há 1 dia</Information>
+            <Price>
+              4,29<TinyPrice>9</TinyPrice>
+            </Price>
+            <Information>Atualizado há 1 dia</Information>
           </ViewPrice>
         </Row>
       </Container>

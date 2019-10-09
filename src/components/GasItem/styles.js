@@ -46,16 +46,21 @@ export const Address = styled.Text`
 `;
 
 export const Real = styled.Text`
-  font-size: ${fonts.tiny}px;
+  font-size: ${fonts.small}px;
   font-weight: bold;
   color: ${colors.darker};
   align-self: flex-start;
 `;
 
 export const Price = styled.Text`
-  font-size: ${fonts.regular}px;
+  font-size: ${fonts.input}px;
   color: ${colors.morderatered};
   font-weight: bold;
+`;
+
+export const TinyPrice = styled.Text`
+  font-size: ${fonts.regular}px;
+  color: ${colors.dark};
 `;
 
 export const ViewPrice = styled.View`
