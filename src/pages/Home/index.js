@@ -75,7 +75,9 @@ export default class Home extends Component {
         <GasText>Postos Mais Baratos</GasText>
         <FlatList
           data={gasStations}
-          renderItem={({ item }) => <GasItem data={item} />}
+          renderItem={({ item }) => (
+            <GasItem data={item} navigation={this.props.navigation} />
+          )}
           keyExtractor={item => item.id.toString()}
         />
       </Container>

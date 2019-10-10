@@ -22,4 +22,11 @@ export default {
   lightred: '#ff9c91',
   morderatered: '#ff5e62',
   verydark: '#1c2938',
+
+  // Prices
+  red: '#CC0000',
+  green: '#00C851',
+  yellow: '#ffbb33',
+  blue: '#33b5e5',
+  gray: '#4B515D',
 };

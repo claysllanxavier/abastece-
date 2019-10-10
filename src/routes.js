@@ -16,9 +16,12 @@ const GassStack = createStackNavigator({
     screen: GasStations,
     navigationOptions: ({ navigation }) => ({
       header: null,
+      headerBackTitle: null,
     }),
   },
-  GasDetail: GasDetail,
+  GasDetail: {
+    screen: GasDetail,
+  },
 });
 
 const PromoStack = createStackNavigator({

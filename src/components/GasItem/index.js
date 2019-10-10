@@ -17,9 +17,12 @@ import {
   TinyPrice,
 } from './styles';
 
-const GasItem = ({ data }) => {
+const GasItem = ({ data, navigation }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => {}}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        navigation.navigate('GasDetail');
+      }}>
       <Container>
         <Row>
           <Box>
