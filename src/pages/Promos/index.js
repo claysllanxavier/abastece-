@@ -29,7 +29,7 @@ export default class Promos extends Component {
         <Header fit={true} />
         <SpaceMargin>
           <CardTitle>
-            <Title>Promoções</Title>
+            <Title>Ofertas</Title>
           </CardTitle>
         </SpaceMargin>
         <FlatList

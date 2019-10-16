@@ -11,69 +11,91 @@ import Maps from '~/pages/Maps';
 import Promos from '~/pages/Promos';
 import PromoDetail from '~/pages/Promos/PromoDetail';
 
-const GassStack = createStackNavigator({
-  GasStations: {
-    screen: GasStations,
-    navigationOptions: ({ navigation }) => ({
-      header: null,
+const GassStack = createStackNavigator(
+  {
+    GasStations: {
+      screen: GasStations,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    GasDetail: GasDetail,
+  },
+  {
+    defaultNavigationOptions: {
       headerBackTitle: null,
-    }),
+      headerTintColor: '#fff',
+    },
   },
-  GasDetail: {
-    screen: GasDetail,
-  },
-});
+);
 
-const PromoStack = createStackNavigator({
-  Promos: {
-    screen: Promos,
-    navigationOptions: ({ navigation }) => ({
-      header: null,
-    }),
+const PromoStack = createStackNavigator(
+  {
+    Promos: {
+      screen: Promos,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    PromoDetail: PromoDetail,
   },
-  PromoDetail: PromoDetail,
-});
+  {
+    defaultNavigationOptions: {
+      headerBackTitle: null,
+      headerTintColor: '#fff',
+    },
+  },
+);
 
 const Routes = createAppContainer(
-  createBottomTabNavigator({
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        tabBarLabel: 'Início',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="home" size={20} color={tintColor} />
-        ),
+  createBottomTabNavigator(
+    {
+      Home: {
+        screen: Home,
+        navigationOptions: {
+          tabBarLabel: 'Início',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="home" size={20} color={tintColor} />
+          ),
+        },
+      },
+      Map: {
+        screen: Maps,
+        navigationOptions: {
+          tabBarLabel: 'Mapa',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="location-arrow" size={20} color={tintColor} />
+          ),
+        },
+      },
+      GasStations: {
+        screen: GassStack,
+        navigationOptions: {
+          tabBarLabel: 'Postos',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="gas-pump" size={20} color={tintColor} />
+          ),
+        },
+      },
+      Promos: {
+        screen: PromoStack,
+        navigationOptions: {
+          tabBarLabel: 'Ofertas',
+          tabBarIcon: ({ tintColor }) => (
+            <Icon name="ticket-alt" size={20} color={tintColor} />
+          ),
+        },
       },
     },
-    Map: {
-      screen: Maps,
-      navigationOptions: {
-        tabBarLabel: 'Mapa',
+    {
+      defaultNavigationOptions: {
         header: null,
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="location-arrow" size={20} color={tintColor} />
-        ),
+        headerBackTitle: null,
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerTintColor: '#fff',
       },
     },
-    GasStations: {
-      screen: GassStack,
-      navigationOptions: {
-        tabBarLabel: 'Postos',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="gas-pump" size={20} color={tintColor} />
-        ),
-      },
-    },
-    Promos: {
-      screen: PromoStack,
-      navigationOptions: {
-        tabBarLabel: 'Promoções',
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="ticket-alt" size={20} color={tintColor} />
-        ),
-      },
-    },
-  }),
+  ),
 );
 
 export default Routes;

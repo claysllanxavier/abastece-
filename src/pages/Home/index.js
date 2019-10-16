@@ -63,7 +63,7 @@ export default class Home extends Component {
         <Header />
         <SpaceMargin>
           <CardPromo>
-            <TextPromo>Últimas Promoções</TextPromo>
+            <TextPromo>Últimas Ofertas</TextPromo>
             <FlatList
               data={data}
               horizontal={true}

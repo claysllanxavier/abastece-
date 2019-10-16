@@ -38,7 +38,7 @@ export default class GasStations extends Component {
         <Header fit={true} />
         <SpaceMargin>
           <CardTitle>
-            <Title>Gasolina</Title>
+            <Title>Postos</Title>
           </CardTitle>
         </SpaceMargin>
         <FlatList
