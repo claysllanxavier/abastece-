@@ -20,7 +20,7 @@ export const CardPromo = styled.View`
   box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.2);
   padding: ${metrics.basePadding / 2}px 0px 0px ${metrics.basePadding / 2}px;
   background: ${colors.white};
-  height: ${wp('60%')};
+  height: ${wp('50%')};
 `;
 
 export const TextPromo = styled.Text`

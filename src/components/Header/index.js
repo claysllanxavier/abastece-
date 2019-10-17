@@ -4,24 +4,6 @@ import { colors } from '~/styles';
 import { Linear, Info, Text, CityBox, CityText, CityIcon } from './styles';
 
 export default class Header extends Component {
-  handleCity = () => {
-    let cities = [
-      'Palmas - TO',
-      'Araguaína - TO',
-      'Imperatriz - MA',
-      'Cancelar',
-    ];
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        options: cities,
-        cancelButtonIndex: 3,
-        title: 'Selecione a cidade',
-        message: 'Cidades disponíveis do app',
-      },
-      args => console.log(args),
-    );
-  };
-
   render() {
     const { fit } = this.props;
     return (
@@ -35,12 +17,6 @@ export default class Header extends Component {
             <Text>Cidade</Text>
             <CityBox>
               <CityText>Palmas - TO</CityText>
-              <CityIcon
-                name="chevron-down"
-                color="#fff"
-                backgroundColor={colors.transparent}
-                onPress={this.handleCity}
-              />
             </CityBox>
           </Info>
         </Linear>

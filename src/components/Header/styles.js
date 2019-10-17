@@ -12,7 +12,7 @@ export const Linear = styled(LinearGradient)`
   align-items: flex-start;
   border-bottom-width: 1px;
   border-bottom-color: #fff;
-  height: ${props => (props.fit ? hp('23%') : hp('32%'))};
+  height: ${props => (props.fit ? hp('20%') : hp('32%'))};
   position: absolute;
   left: 0;
   top: 0;
@@ -40,10 +40,4 @@ export const CityText = styled.Text`
   color: ${colors.white};
   font-size: ${fonts.regular};
   font-weight: bold;
-`;
-
-export const CityIcon = styled(Icon.Button)`
-  padding: 0;
-  margin-left: ${metrics.baseMargin};
-  margin-top: 2px;
 `;
