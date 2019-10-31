@@ -21,23 +21,32 @@ const GasItem = ({ data, navigation }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        navigation.navigate('GasDetail');
+        navigation.navigate('GasDetail', { id: data.id });
       }}>
       <Container>
         <Row>
           <Box>
-            <Thumb source={{ uri: data.image }} />
+            <Thumb
+              source={{ uri: data.bandeira ? data.bandeira.imagem : '' }}
+            />
             <Info>
-              <Gas>{data.name}</Gas>
+              <Gas>{data.nome}</Gas>
               <Address>
-                {data.distance} - {data.address}
+                {data.distance} - {data.endereco}
               </Address>
             </Info>
           </Box>
           <ViewPrice>
             <Real>R$</Real>
             <Price>
-              4,29<TinyPrice>9</TinyPrice>
+              {data.combustiveis
+                ? data.combustiveis[0].preco.substring(0, 4)
+                : parseFloat(0).toFixed(2)}
+              <TinyPrice>
+                {data.combustiveis
+                  ? data.combustiveis[0].preco.substring(4, 5)
+                  : 0}
+              </TinyPrice>
             </Price>
             <Information>Atualizado há 1 dia</Information>
           </ViewPrice>
@@ -47,12 +56,12 @@ const GasItem = ({ data, navigation }) => {
   );
 };
 
-GasItem.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-  }).isRequired,
-};
+// GasItem.propTypes = {
+//   data: PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//     name: PropTypes.string.isRequired,
+//     image: PropTypes.string.isRequired,
+//   }).isRequired,
+// };
 
 export default GasItem;
