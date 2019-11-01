@@ -10,6 +10,49 @@ export const Container = styled.View`
   background: ${colors.lightcyan};
 `;
 
+export const Section = styled.View`
+  margin: ${metrics.baseMargin}px;
+  border-radius: ${metrics.baseRadius}px;
+  box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.2);
+  background: ${colors.white};
+  padding: ${metrics.basePadding}px;
+  flex-direction: row;
+`;
+
+export const Image = styled.Image`
+  width: 60;
+  height: 60;
+  border-radius: ${metrics.baseRadius};
+`;
+
+export const InfoBox = styled.View`
+  flex-direction: column;
+  width: ${wp('68%')};
+  margin-left: ${metrics.baseMargin}px;
+`;
+
+export const Name = styled.Text`
+  font-weight: bold;
+  font-size: ${fonts.regular}px;
+  color: ${colors.black};
+  margin-bottom: ${metrics.baseMargin}px;
+`;
+
+export const Address = styled.Text`
+  font-size: ${fonts.medium}px;
+  color: ${colors.darker};
+`;
+
+export const Phone = styled.Text`
+  font-size: ${fonts.medium}px;
+  color: ${colors.darker};
+`;
+
+export const Type = styled.Text`
+  font-size: ${fonts.medium}px;
+  color: ${colors.darker};
+`;
+
 export const Fuel = styled.View`
   border-color: white;
   border-width: 1;
@@ -26,7 +69,7 @@ export const Title = styled.Text`
   font-size: ${fonts.regular}px;
   font-weight: bold;
   text-align: center;
-  margin-top: ${metrics.doubleBaseMargin}px;
+  margin-top: ${metrics.baseMargin}px;
   color: ${colors.morderatered};
 `;
 
@@ -77,7 +120,7 @@ export const ViewPrice = styled.View`
 `;
 
 export const Information = styled.Text`
-  font-size: ${fonts.tiny};
+  font-size: ${fonts.small};
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -90,8 +133,6 @@ export const Button = styled.TouchableOpacity`
   border-color: ${colors.morderatered};
   border-width: 1;
   align-self: center;
-  position: absolute;
-  bottom: 0;
 `;
 
 export const ButtonText = styled.Text`

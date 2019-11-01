@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
 import api from '~/services/api';
 import * as S from './styles';
 
 export default function GasDetail({ navigation }) {
   const [gas, setGas] = useState([]);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
   const id = navigation.getParam('id');
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      },
+      error => console.log(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       const { data } = await api.get(`/gas/${id}/`, {
         params: {
-          latitude: -10.349369,
-          longitude: -48.294267,
+          latitude: latitude,
+          longitude: longitude,
         },
       });
       setGas(data);
     }
 
     fetchData();
-  }, [id]);
-
-  useEffect(() => {
-    const { name } = gas;
-    navigation.setParams({ title: name });
-    /* eslint-disable react-hooks/exhaustive-deps */
-  }, [gas]);
+  }, [id, latitude, longitude]);
 
   const renderFuel = item => {
     return (
@@ -52,20 +60,31 @@ export default function GasDetail({ navigation }) {
   return (
     <S.Container>
       <ScrollView>
+        {gas.name && (
+          <S.Section>
+            <S.Image source={{ uri: gas.type.url }} />
+            <S.InfoBox>
+              <S.Name>{gas.name}</S.Name>
+              <S.Type>Bandeira: {gas.type.name}</S.Type>
+              <S.Phone>Contato: {gas.phone}</S.Phone>
+              <S.Address>Endereço: {gas.address}</S.Address>
+            </S.InfoBox>
+          </S.Section>
+        )}
         <S.Title>Preço dos Combustíveis</S.Title>
         {gas.fuels && gas.fuels.map(item => renderFuel(item))}
+        <S.Button>
+          <S.ButtonText>
+            Traçar Rota • {gas.distance && gas.distance.toFixed(2)} Km
+          </S.ButtonText>
+        </S.Button>
       </ScrollView>
-      <S.Button>
-        <S.ButtonText>
-          Traçar Rota • {gas.distance && gas.distance.toFixed(2)} Km
-        </S.ButtonText>
-      </S.Button>
     </S.Container>
   );
 }
 
 GasDetail.navigationOptions = ({ navigation }) => ({
-  title: navigation.getParam('title'),
+  title: 'Informação do Posto',
   headerStyle: {
     backgroundColor: '#ff5e62',
   },
