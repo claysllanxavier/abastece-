@@ -22,10 +22,10 @@ const GasItem = ({ data, navigation }) => {
       <S.Container>
         <S.Row>
           <S.Box>
-            <S.Thumb source={{ uri: data.type ? data.type.url : '' }} />
+            {data.type && <S.Thumb source={{ uri: data.type.url }} />}
             <S.Info>
               <S.Gas>{data.name}</S.Gas>
-              <S.Address>
+              <S.Address numberOfLines={2}>
                 {parseFloat(data.distance).toFixed(2)} Km - {data.address}
               </S.Address>
             </S.Info>

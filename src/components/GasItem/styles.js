@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { metrics, colors, fonts } from '~/styles';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   border-color: white;
@@ -38,11 +39,13 @@ export const Gas = styled.Text`
   font-size: ${fonts.medium}px;
   font-weight: bold;
   color: ${colors.verydark};
+  width: ${wp('50%')};
 `;
 
 export const Address = styled.Text`
   font-size: ${fonts.small}px;
   color: ${colors.darker};
+  width: ${wp('50%')};
 `;
 
 export const Real = styled.Text`
