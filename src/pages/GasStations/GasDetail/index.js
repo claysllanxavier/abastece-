@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { colors } from '~/styles';
 import api from '~/services/api';
 import * as S from './styles';
 
 export default function GasDetail({ navigation }) {
   const [gas, setGas] = useState([]);
-  const { id } = navigation.getParam('id');
+  const id = navigation.getParam('id');
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await api.get(`/postos/posto/${id}/`);
+      const { data } = await api.get(`/gas/${id}/`, {
+        params: {
+          latitude: -10.349369,
+          longitude: -48.294267,
+        },
+      });
       setGas(data);
     }
 
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    const { name } = gas;
+    navigation.setParams({ title: name });
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }, [gas]);
+
   const renderFuel = item => {
     return (
       <S.Fuel key={item.id}>
@@ -27,8 +38,9 @@ export default function GasDetail({ navigation }) {
           </S.Box>
           <S.ViewPrice>
             <S.Real>R$</S.Real>
-            <S.Price color={colors[item.color]}>
-              4,29<S.TinyPrice>9</S.TinyPrice>
+            <S.Price color={item.color}>
+              {item.pivot.price.substring(0, 4)}
+              <S.TinyPrice>{item.pivot.price.substring(4, 5)}</S.TinyPrice>
             </S.Price>
             <S.Information>Atualizado há 1 dia</S.Information>
           </S.ViewPrice>
@@ -41,18 +53,19 @@ export default function GasDetail({ navigation }) {
     <S.Container>
       <ScrollView>
         <S.Title>Preço dos Combustíveis</S.Title>
-        {gas.combustiveis &&
-          gas.combustiveis.map(item => this.renderFuel(item))}
+        {gas.fuels && gas.fuels.map(item => renderFuel(item))}
       </ScrollView>
       <S.Button>
-        <S.ButtonText>Traçar Rota • 2.2 Km</S.ButtonText>
+        <S.ButtonText>
+          Traçar Rota • {gas.distance && gas.distance.toFixed(2)} Km
+        </S.ButtonText>
       </S.Button>
     </S.Container>
   );
 }
 
 GasDetail.navigationOptions = ({ navigation }) => ({
-  title: 'Rodoposto',
+  title: navigation.getParam('title'),
   headerStyle: {
     backgroundColor: '#ff5e62',
   },

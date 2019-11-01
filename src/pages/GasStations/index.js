@@ -10,9 +10,13 @@ export default function GasStations({ navigation }) {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await api.get('/postos/posto/');
-      console.tron.log(data);
-      setGasStations(data);
+      const { data } = await api.get('/gas', {
+        params: {
+          latitude: -10.349369,
+          longitude: -48.294267,
+        },
+      });
+      setGasStations(data.data);
     }
 
     fetchData();
