@@ -8,7 +8,7 @@ import * as S from './styles';
 
 // import { Container } from './styles';
 
-export default function Promos() {
+export default function Promos({ navigation }) {
   const [companies, setCompany] = useState([]);
 
   const [latitude, setLatitude] = useState(0);
@@ -52,7 +52,9 @@ export default function Promos() {
       </S.SpaceMargin>
       <FlatList
         data={companies}
-        renderItem={({ item }) => <PromoItem big data={item} />}
+        renderItem={({ item }) => (
+          <PromoItem big data={item} navigation={navigation} />
+        )}
         keyExtractor={item => item.id.toString()}
       />
     </S.Container>

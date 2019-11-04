@@ -68,7 +68,9 @@ export default function Home({ navigation }) {
             <FlatList
               data={companies}
               horizontal={true}
-              renderItem={({ item }) => <PromoItem data={item} />}
+              renderItem={({ item }) => (
+                <PromoItem data={item} navigation={navigation} />
+              )}
               keyExtractor={item => item.id.toString()}
             />
           </S.CardPromo>

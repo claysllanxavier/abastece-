@@ -11,4 +11,6 @@ export const ItemImage = styled.Image`
   width: ${props => (props.big ? wp('90%') : wp('35%'))};
   height: 120;
   border-radius: ${metrics.baseRadius};
+  border-style: solid;
+  border-width: 0.2px;
 `;

@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 
 import { Container, ItemImage } from './styles';
 
-const PromoItem = ({ data, big }) => {
+const PromoItem = ({ data, big, navigation }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => {}}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        navigation.navigate('PromoDetail', { id: data.id });
+      }}>
       <Container>
         <ItemImage big={big} source={{ uri: data.url }} />
       </Container>
