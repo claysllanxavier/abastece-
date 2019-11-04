@@ -10,7 +10,7 @@ const PromoItem = ({ data, big }) => {
   return (
     <TouchableWithoutFeedback onPress={() => {}}>
       <Container>
-        <ItemImage big={big} source={{ uri: data.banner_url }} />
+        <ItemImage big={big} source={{ uri: data.url }} />
       </Container>
     </TouchableWithoutFeedback>
   );
@@ -18,7 +18,7 @@ const PromoItem = ({ data, big }) => {
 
 PromoItem.propTypes = {
   data: PropTypes.shape({
-    banner_url: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
 };
 

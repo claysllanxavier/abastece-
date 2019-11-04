@@ -9,6 +9,7 @@ import api from '~/services/api';
 
 export default function Home({ navigation }) {
   const [gas, setGas] = useState([]);
+  const [companies, setCompany] = useState([]);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
@@ -35,26 +36,28 @@ export default function Home({ navigation }) {
       setGas(data.data);
     }
 
-    fetchData();
+    if (latitude !== 0 && longitude !== 0) {
+      fetchData();
+    }
   }, [latitude, longitude]);
 
-  const data = [
-    {
-      id: 1,
-      banner_url:
-        'http://www.cotrisoja.com.br/wp-content/uploads/2016/07/Gasolina-Comum-R-370-1024x520.jpg',
-    },
-    {
-      id: 2,
-      banner_url:
-        'http://www.vergamota.com.br/uploads/img/produtos/view_3750_produtos.png',
-    },
-    {
-      id: 3,
-      banner_url:
-        'http://www.cotrisoja.com.br/wp-content/uploads/2016/10/Gasolina-Aditivada-R-391-1024x520.jpg',
-    },
-  ];
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await api.get('/companies', {
+        params: {
+          latitude: latitude,
+          longitude: longitude,
+          limit: 5,
+        },
+      });
+      setCompany(data);
+    }
+
+    if (latitude !== 0 && longitude !== 0) {
+      fetchData();
+    }
+  }, [latitude, longitude]);
+
   return (
     <S.Container>
       <ScrollView>
@@ -63,7 +66,7 @@ export default function Home({ navigation }) {
           <S.CardPromo>
             <S.TextPromo>Últimas Ofertas</S.TextPromo>
             <FlatList
-              data={data}
+              data={companies}
               horizontal={true}
               renderItem={({ item }) => <PromoItem data={item} />}
               keyExtractor={item => item.id.toString()}
