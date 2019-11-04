@@ -10,6 +10,11 @@ export const Container = styled.View`
   background: ${colors.lightcyan};
 `;
 
+export const Loading = styled.View`
+  align-self: center;
+  margin: 40px 0px;
+`;
+
 export const SpaceMargin = styled.View`
   margin-top: ${hp('17%')};
 `;
