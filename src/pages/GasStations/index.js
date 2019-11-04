@@ -50,7 +50,9 @@ export default function GasStations({ navigation }) {
       setLastPage(data.lastPage);
     }
 
-    fetchData();
+    if (latitude !== 0 && longitude !== 0) {
+      fetchData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, page]);
 
