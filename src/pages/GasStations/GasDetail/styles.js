@@ -121,6 +121,8 @@ export const ViewPrice = styled.View`
 
 export const Information = styled.Text`
   font-size: ${fonts.small};
+  align-self: flex-end;
+  margin-right: ${metrics.baseMargin}px;
 `;
 
 export const Button = styled.TouchableOpacity`

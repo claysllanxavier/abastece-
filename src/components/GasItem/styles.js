@@ -74,4 +74,6 @@ export const ViewPrice = styled.View`
 
 export const Information = styled.Text`
   font-size: ${fonts.tiny};
+  align-self: flex-end;
+  margin-right: ${metrics.baseMargin}px;
 `;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
+import { formatRelative } from 'date-fns';
+import { pt } from 'date-fns/locale';
 import PropTypes from 'prop-types';
 import * as S from './styles';
 
@@ -36,9 +38,17 @@ const GasItem = ({ data, navigation }) => {
               {getPrice(data.fuels)[0]}
               <S.TinyPrice>{getPrice(data.fuels)[1]}</S.TinyPrice>
             </S.Price>
-            <S.Information>Atualizado há 1 dia</S.Information>
           </S.ViewPrice>
         </S.Row>
+        <S.Information>
+          {`Atualizado ${formatRelative(
+            new Date(data.updated_at.replace(/-/g, '/')),
+            new Date(),
+            {
+              locale: pt,
+            },
+          )}`}
+        </S.Information>
       </S.Container>
     </TouchableWithoutFeedback>
   );

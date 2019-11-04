@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
+import { formatRelative } from 'date-fns';
+import { pt } from 'date-fns/locale';
 import Geolocation from '@react-native-community/geolocation';
 import api from '~/services/api';
 import * as S from './styles';
@@ -50,9 +52,17 @@ export default function GasDetail({ navigation }) {
               {item.pivot.price.substring(0, 4)}
               <S.TinyPrice>{item.pivot.price.substring(4, 5)}</S.TinyPrice>
             </S.Price>
-            <S.Information>Atualizado há 1 dia</S.Information>
           </S.ViewPrice>
         </S.Row>
+        <S.Information>
+          {`Atualizado ${formatRelative(
+            new Date(item.updated_at.replace(/-/g, '/')),
+            new Date(),
+            {
+              locale: pt,
+            },
+          )}`}
+        </S.Information>
       </S.Fuel>
     );
   };
