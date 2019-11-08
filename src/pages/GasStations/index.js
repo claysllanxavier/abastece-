@@ -39,7 +39,7 @@ export default function GasStations({ navigation }) {
         params: {
           latitude: latitude,
           longitude: longitude,
-          distance: 60,
+          distance: 100,
           page: page,
         },
       });

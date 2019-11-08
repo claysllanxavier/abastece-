@@ -9,9 +9,9 @@ const GasItem = ({ data, navigation }) => {
   const getPrice = function(fuels) {
     let price = parseFloat(0).toFixed(2);
     let tinyPrice = 0;
-    if (fuels) {
-      price = fuels[0].pivot.price.substring(0, 4);
-      tinyPrice = fuels[0].pivot.price.substring(4, 5);
+    if (fuels.length) {
+      price = fuels[0].pivot.price.toString().substring(0, 4);
+      tinyPrice = fuels[0].pivot.price.toString().substring(4, 5);
     }
     return [price, tinyPrice];
   };

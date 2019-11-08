@@ -49,8 +49,10 @@ export default function GasDetail({ navigation }) {
           <S.ViewPrice>
             <S.Real>R$</S.Real>
             <S.Price color={item.color}>
-              {item.pivot.price.substring(0, 4)}
-              <S.TinyPrice>{item.pivot.price.substring(4, 5)}</S.TinyPrice>
+              {item.pivot.price.toString().substring(0, 4)}
+              <S.TinyPrice>
+                {item.pivot.price.toString().substring(4, 5)}
+              </S.TinyPrice>
             </S.Price>
           </S.ViewPrice>
         </S.Row>
