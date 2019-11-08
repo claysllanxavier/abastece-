@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
       },
-      error => console.log(error.message),
+      error => console.tron.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   }, []);

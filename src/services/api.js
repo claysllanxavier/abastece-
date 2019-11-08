@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://abastecemais.tk/api/v1',
+  baseURL: 'http://127.0.0.1:3333/api/v1',
 });
 
 export default api;

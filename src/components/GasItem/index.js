@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { formatRelative } from 'date-fns';
+import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import PropTypes from 'prop-types';
 import * as S from './styles';
@@ -28,7 +28,7 @@ const GasItem = ({ data, navigation }) => {
             <S.Info>
               <S.Gas>{data.name}</S.Gas>
               <S.Address numberOfLines={2}>
-                {parseFloat(data.distance).toFixed(2)} Km - {data.address}
+                A {parseFloat(data.distance).toFixed(2)} Km - {data.address}
               </S.Address>
             </S.Info>
           </S.Box>
@@ -41,25 +41,26 @@ const GasItem = ({ data, navigation }) => {
           </S.ViewPrice>
         </S.Row>
         <S.Information>
-          {`Atualizado ${formatRelative(
-            new Date(data.updated_at.replace(/-/g, '/')),
-            new Date(),
-            {
-              locale: pt,
-            },
-          )}`}
+          {data.fuels.length &&
+            `Atualizado em ${formatDistance(
+              new Date(data.fuels[0].pivot.dt_updated),
+              new Date(),
+              {
+                locale: pt,
+                withoutTime: true,
+              },
+            )}`}
         </S.Information>
       </S.Container>
     </TouchableWithoutFeedback>
   );
 };
 
-// GasItem.propTypes = {
-//   data: PropTypes.shape({
-//     id: PropTypes.number.isRequired,
-//     name: PropTypes.string.isRequired,
-//     image: PropTypes.string.isRequired,
-//   }).isRequired,
-// };
+GasItem.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default GasItem;
