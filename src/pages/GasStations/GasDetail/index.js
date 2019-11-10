@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { formatRelative } from 'date-fns';
-import { pt } from 'date-fns/locale';
 import Geolocation from '@react-native-community/geolocation';
+import { formatDistance } from 'date-fns';
+import { pt } from 'date-fns/locale';
 import api from '~/services/api';
 import * as S from './styles';
+import Loader from '~/components/Loader';
 
 export default function GasDetail({ navigation }) {
   const [gas, setGas] = useState([]);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [isLoading, setLoading] = useState(false);
   const id = navigation.getParam('id');
 
   useEffect(() => {
+    setLoading(true);
     Geolocation.getCurrentPosition(
       position => {
         setLatitude(position.coords.latitude);
@@ -21,10 +24,12 @@ export default function GasDetail({ navigation }) {
       error => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const { data } = await api.get(`/gas/${id}/`, {
         params: {
           latitude: latitude,
@@ -32,9 +37,12 @@ export default function GasDetail({ navigation }) {
         },
       });
       setGas(data);
+      setLoading(false);
     }
 
-    fetchData();
+    if (latitude !== 0 && longitude !== 0) {
+      fetchData();
+    }
   }, [id, latitude, longitude]);
 
   const renderFuel = item => {
@@ -57,8 +65,8 @@ export default function GasDetail({ navigation }) {
           </S.ViewPrice>
         </S.Row>
         <S.Information>
-          {`Atualizado ${formatRelative(
-            new Date(item.updated_at.replace(/-/g, '/')),
+          {`Atualizado em ${formatDistance(
+            new Date(item.pivot.dt_updated),
             new Date(),
             {
               locale: pt,
@@ -71,6 +79,7 @@ export default function GasDetail({ navigation }) {
 
   return (
     <S.Container>
+      <Loader loading={isLoading} />
       <ScrollView>
         {gas.name && (
           <S.Section>

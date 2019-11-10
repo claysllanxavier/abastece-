@@ -47,7 +47,6 @@ const GasItem = ({ data, navigation }) => {
               new Date(),
               {
                 locale: pt,
-                withoutTime: true,
               },
             )}`}
         </S.Information>
@@ -60,6 +59,8 @@ GasItem.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    distance: PropTypes.number.isRequired,
+    address: PropTypes.string.isRequired,
   }).isRequired,
 };
 

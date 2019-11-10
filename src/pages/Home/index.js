@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, ScrollView } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '~/components/Header';
+import Loader from '~/components/Loader';
 import PromoItem from '~/components/PromoItem';
 import GasItem from '~/components/GasItem';
 import * as S from './styles';
@@ -12,8 +13,10 @@ export default function Home({ navigation }) {
   const [companies, setCompany] = useState([]);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     Geolocation.getCurrentPosition(
       position => {
         setLatitude(position.coords.latitude);
@@ -22,10 +25,12 @@ export default function Home({ navigation }) {
       error => console.tron.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true);
       const { data } = await api.get('/gas', {
         params: {
           latitude: latitude,
@@ -34,6 +39,7 @@ export default function Home({ navigation }) {
         },
       });
       setGas(data.data);
+      setLoading(false);
     }
 
     if (latitude !== 0 && longitude !== 0) {
@@ -42,6 +48,7 @@ export default function Home({ navigation }) {
   }, [latitude, longitude]);
 
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       const { data } = await api.get('/companies', {
         params: {
@@ -51,6 +58,7 @@ export default function Home({ navigation }) {
         },
       });
       setCompany(data);
+      setLoading(false);
     }
 
     if (latitude !== 0 && longitude !== 0) {
@@ -60,6 +68,7 @@ export default function Home({ navigation }) {
 
   return (
     <S.Container>
+      <Loader loading={isLoading} />
       <ScrollView>
         <Header />
         <S.SpaceMargin>

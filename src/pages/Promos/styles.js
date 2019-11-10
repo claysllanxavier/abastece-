@@ -30,3 +30,8 @@ export const Title = styled.Text`
   text-align: center;
   font-weight: bold;
 `;
+
+export const Loading = styled.View`
+  align-self: center;
+  margin: 40px 0px;
+`;

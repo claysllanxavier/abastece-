@@ -16,7 +16,7 @@ export const Loading = styled.View`
 `;
 
 export const SpaceMargin = styled.View`
-  margin-top: ${hp('17%')};
+  margin-top: ${hp('14%')};
 `;
 
 export const CardTitle = styled.View`

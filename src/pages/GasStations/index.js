@@ -17,6 +17,7 @@ export default function GasStations({ navigation }) {
   const [canAction, setCanAction] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     Geolocation.getCurrentPosition(
       position => {
         setLatitude(position.coords.latitude);
@@ -25,6 +26,7 @@ export default function GasStations({ navigation }) {
       error => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -57,6 +59,9 @@ export default function GasStations({ navigation }) {
   }, [latitude, longitude, page]);
 
   function onRefresh() {
+    if (page === 1) {
+      return null;
+    }
     setRefreshing(true);
     setGasStations([]);
     setPage(1);
@@ -68,7 +73,7 @@ export default function GasStations({ navigation }) {
     }
     return (
       <S.Loading>
-        <ActivityIndicator size="large" color="#ff5e62" />
+        <ActivityIndicator size="small" />
       </S.Loading>
     );
   }
