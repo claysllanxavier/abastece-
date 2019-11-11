@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import api from '~/services/api';
 import * as S from './styles';
+import Loader from '~/components/Loader';
 
 export default function GasDetail({ navigation }) {
   const [company, setCompany] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   const id = navigation.getParam('id');
 
   useEffect(() => {
     async function fetchData() {
+      setLoading(true)
       const { data } = await api.get(`/companies/${id}/franchises`);
       setCompany(data);
+      setLoading(false)
     }
 
     fetchData();
@@ -42,6 +46,7 @@ export default function GasDetail({ navigation }) {
 
   return (
     <S.Container>
+    <Loader loading={isLoading} />
       <ScrollView>
         <S.Section>
           <S.Image source={{ uri: company.url }} />
@@ -52,7 +57,7 @@ export default function GasDetail({ navigation }) {
   );
 }
 
-GasDetail.navigationOptions = ({ navigation }) => ({
+GasDetail.navigationOptions = () => ({
   title: 'Informações das Ofertas',
   headerStyle: {
     backgroundColor: '#ff5e62',
