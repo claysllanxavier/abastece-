@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, ActivityIndicator } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '~/components/Header';
+import FooterList from '~/components/FooterList';
 import * as S from './styles';
 import GasItem from '~/components/GasItem';
 import api from '~/services/api';
@@ -12,7 +13,7 @@ export default function GasStations({ navigation }) {
   const [longitude, setLongitude] = useState(0);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [canAction, setCanAction] = useState(true);
 
@@ -68,18 +69,14 @@ export default function GasStations({ navigation }) {
   }
 
   function renderFooter() {
-    if (!loading) {
+    if (!isLoading) {
       return null;
     }
-    return (
-      <S.Loading>
-        <ActivityIndicator size="small" />
-      </S.Loading>
-    );
+    return <FooterList />;
   }
 
   function loadMore() {
-    if (loading) {
+    if (isLoading) {
       return null;
     }
     if (!canAction) {
