@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, ActivityIndicator } from 'react-native';
+import { FlatList } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '~/components/Header';
 import FooterList from '~/components/FooterList';
@@ -17,8 +17,7 @@ export default function GasStations({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [canAction, setCanAction] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
+  function getLoaction() {
     Geolocation.getCurrentPosition(
       position => {
         setLatitude(position.coords.latitude);
@@ -27,6 +26,11 @@ export default function GasStations({ navigation }) {
       error => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    getLoaction();
     setLoading(false);
   }, []);
 
@@ -60,12 +64,12 @@ export default function GasStations({ navigation }) {
   }, [latitude, longitude, page]);
 
   function onRefresh() {
-    if (page === 1) {
-      return null;
-    }
     setRefreshing(true);
     setGasStations([]);
     setPage(1);
+    setLatitude(0);
+    setLongitude(0);
+    getLoaction();
   }
 
   function renderFooter() {
