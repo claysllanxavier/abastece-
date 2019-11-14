@@ -91,12 +91,7 @@ export default function GasStations({ navigation }) {
 
   return (
     <S.Container>
-      <Header fit={true} />
-      <S.SpaceMargin>
-        <S.CardTitle>
-          <S.Title>Postos</S.Title>
-        </S.CardTitle>
-      </S.SpaceMargin>
+      <Header fit={true} title="Postos" />
       <FlatList
         data={gasStations}
         renderItem={({ item }) => (

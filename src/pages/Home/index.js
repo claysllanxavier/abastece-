@@ -68,8 +68,8 @@ export default function Home({ navigation }) {
 
   return (
     <S.Container>
-      <Loader loading={isLoading} />
       <ScrollView>
+        <Loader loading={isLoading} />
         <Header />
         <S.SpaceMargin>
           <S.CardPromo>

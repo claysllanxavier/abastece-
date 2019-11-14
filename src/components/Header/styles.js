@@ -11,7 +11,7 @@ export const Linear = styled(LinearGradient)`
   align-items: flex-start;
   border-bottom-width: 1px;
   border-bottom-color: #fff;
-  height: ${props => (props.fit ? hp('20%') : hp('32%'))};
+  height: ${props => (props.fit ? hp('20%') : hp('29%'))};
   position: absolute;
   left: 0;
   top: 0;
@@ -38,5 +38,26 @@ export const CityBox = styled.View`
 export const CityText = styled.Text`
   color: ${colors.white};
   font-size: ${fonts.regular};
+  font-weight: bold;
+`;
+
+export const SpaceMargin = styled.View`
+  margin-top: ${hp('12%')};
+`;
+
+export const CardTitle = styled.View`
+  margin: ${metrics.baseMargin / 5}px ${metrics.baseMargin + 5}px;
+  border-radius: ${metrics.baseRadius}px;
+  box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.2);
+  padding: ${metrics.basePadding}px 0px;
+  background: ${colors.white};
+  height: ${wp('20%')};
+  justify-content: center;
+`;
+
+export const Title = styled.Text`
+  color: ${colors.morderatered};
+  font-size: ${fonts.input};
+  text-align: center;
   font-weight: bold;
 `;

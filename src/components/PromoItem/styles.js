@@ -1,9 +1,9 @@
 import styled from 'styled-components/native';
-import { metrics } from '~/styles';
+import { metrics, colors } from '~/styles';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
-  margin-top: ${metrics.baseMargin}px;
+  margin-top: ${metrics.baseMargin / 1.2}px;
   padding-left: ${metrics.basePadding / 1.2}px;
 `;
 
@@ -12,4 +12,5 @@ export const ItemImage = styled.Image`
   height: 120;
   border-radius: ${metrics.baseRadius};
   border-width: 0.2px;
+  border-color: ${colors.black};
 `;

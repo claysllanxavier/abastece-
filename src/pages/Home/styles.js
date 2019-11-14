@@ -11,16 +11,16 @@ export const Container = styled.View`
 `;
 
 export const SpaceMargin = styled.View`
-  margin-top: ${hp('14%')};
+  margin-top: ${hp('10%')};
 `;
 
 export const CardPromo = styled.View`
   margin: ${metrics.baseMargin}px;
   border-radius: ${metrics.baseRadius}px;
   box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.2);
-  padding: ${metrics.basePadding / 2}px 0px 0px ${metrics.basePadding / 2}px;
+  padding: ${metrics.basePadding / 2}px 0px 0px ${metrics.basePadding / 2.5}px;
   background: ${colors.white};
-  height: ${wp('50%')};
+  height: ${wp('45%')};
 `;
 
 export const TextPromo = styled.Text`

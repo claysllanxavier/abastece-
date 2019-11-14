@@ -42,7 +42,7 @@ const GasItem = ({ data, navigation }) => {
         </S.Row>
         <S.Information>
           {data.fuels.length &&
-            `Atualizado em ${formatDistance(
+            `Atualizado a ${formatDistance(
               new Date(data.fuels[0].pivot.dt_updated),
               new Date(),
               {

@@ -39,12 +39,7 @@ export default function Promos({ navigation }) {
 
   return (
     <S.Container>
-      <Header fit={true} />
-      <S.SpaceMargin>
-        <S.CardTitle>
-          <S.Title>Ofertas</S.Title>
-        </S.CardTitle>
-      </S.SpaceMargin>
+      <Header fit={true} title="Ofertas" />
       <FlatList
         data={companies}
         renderItem={({ item }) => (
