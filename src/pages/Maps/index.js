@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, Dimensions } from 'react-native';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -12,57 +12,47 @@ const LONGITUDE = 0;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export default class Maps extends Component {
-  state = {
-    region: {
-      latitude: LATITUDE,
-      longitude: LONGITUDE,
-      latitudeDelta: LATITUDE_DELTA,
-      longitudeDelta: LONGITUDE_DELTA,
-    },
-  };
+export default function Maps() {
+  const [region, setRegion] = useState({
+    latitude: LATITUDE,
+    longitude: LONGITUDE,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA,
+  });
 
-  componentDidMount() {
+  useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
-        this.setState({
-          region: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-          },
+        setRegion({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
         });
       },
       error => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    this.watchID = Geolocation.watchPosition(position => {
-      this.setState({
-        region: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        },
-      });
-    });
-  }
 
-  componentWillUnmount() {
-    Geolocation.clearWatch(this.watchID);
-  }
+    // const watchID = Geolocation.watchPosition(position => {
+    //   setRegion({
+    //       latitude: position.coords.latitude,
+    //       longitude: position.coords.longitude,
+    //       latitudeDelta: LATITUDE_DELTA,
+    //       longitudeDelta: LONGITUDE_DELTA,
+    //     });
+    // });
+    // return () => Geolocation.clearWatch(watchID);
+  }, []);
 
-  render() {
-    return (
-      <Container>
-        <Mapa
-          provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
-          showsUserLocation={true}
-          region={this.state.region}
-          onRegionChangeComplete={region => this.setState({ region })}
-        />
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <Mapa
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
+        showsUserLocation={true}
+        region={region}
+        onRegionChangeComplete={item => setRegion(item)}
+      />
+    </Container>
+  );
 }

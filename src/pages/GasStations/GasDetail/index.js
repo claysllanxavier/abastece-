@@ -54,7 +54,8 @@ export default function GasDetail({ navigation }) {
     setOptions({
       latitude: gas.latitude,
       longitude: gas.longitude,
-      title: `Posto de Gasolina ${gas.name}`,
+      googleForceLatLon: true,
+      title: `${gas.name}`,
       dialogTitle: 'Abrir no mapa',
       dialogMessage: 'Qual app você deseja utilizar?',
       cancelText: 'Cancelar',
