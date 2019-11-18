@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
+import { Popup } from 'react-native-map-link';
 import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import api from '~/services/api';
@@ -12,6 +13,9 @@ export default function GasDetail({ navigation }) {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [isVisible, setVisible] = useState(false);
+  const [options, setOptions] = useState({});
+
   const id = navigation.getParam('id');
 
   useEffect(() => {
@@ -44,6 +48,18 @@ export default function GasDetail({ navigation }) {
       fetchData();
     }
   }, [id, latitude, longitude]);
+
+  function handleGetDirections() {
+    setVisible(true);
+    setOptions({
+      latitude: gas.latitude,
+      longitude: gas.longitude,
+      title: `Posto de Gasolina ${gas.name}`,
+      dialogTitle: 'Abrir no mapa',
+      dialogMessage: 'Qual app você deseja utilizar?',
+      cancelText: 'Cancelar',
+    });
+  }
 
   const renderFuel = item => {
     return (
@@ -79,6 +95,13 @@ export default function GasDetail({ navigation }) {
 
   return (
     <S.Container>
+      <Popup
+        isVisible={isVisible}
+        onCancelPressed={() => setVisible(false)}
+        onAppPressed={() => setVisible(false)}
+        onBackButtonPressed={() => setVisible(false)}
+        options={options}
+      />
       <Loader loading={isLoading} />
       <ScrollView>
         {gas.name && (
@@ -94,7 +117,7 @@ export default function GasDetail({ navigation }) {
         )}
         <S.Title>Preço dos Combustíveis</S.Title>
         {gas.fuels && gas.fuels.map(item => renderFuel(item))}
-        <S.Button>
+        <S.Button onPress={handleGetDirections}>
           <S.ButtonText>
             Traçar Rota • {gas.distance && gas.distance.toFixed(2)} Km
           </S.ButtonText>

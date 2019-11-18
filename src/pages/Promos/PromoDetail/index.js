@@ -11,10 +11,10 @@ export default function GasDetail({ navigation }) {
 
   useEffect(() => {
     async function fetchData() {
-      setLoading(true)
+      setLoading(true);
       const { data } = await api.get(`/companies/${id}/franchises`);
       setCompany(data);
-      setLoading(false)
+      setLoading(false);
     }
 
     fetchData();
@@ -22,7 +22,7 @@ export default function GasDetail({ navigation }) {
 
   const renderItem = item => {
     return (
-      <S.Card>
+      <S.Card key={item.id.toString()}>
         <S.CardHeader>
           <S.CardTitle>{item.name}</S.CardTitle>
           <S.InfoBox>
@@ -46,7 +46,7 @@ export default function GasDetail({ navigation }) {
 
   return (
     <S.Container>
-    <Loader loading={isLoading} />
+      <Loader loading={isLoading} />
       <ScrollView>
         <S.Section>
           <S.Image source={{ uri: company.url }} />

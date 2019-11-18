@@ -11,7 +11,7 @@ export const Container = styled.View`
   margin: ${metrics.baseMargin}px ${metrics.baseMargin}px 0px
     ${metrics.baseMargin}px;
   border-radius: ${metrics.baseRadius}px;
-  box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.2);
+  box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.1);
 `;
 
 export const Row = styled.View`
