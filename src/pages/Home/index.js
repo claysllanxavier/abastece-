@@ -14,9 +14,9 @@ export default function Home({ navigation }) {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
+  function getLoaction() {
     Geolocation.getCurrentPosition(
       position => {
         setLatitude(position.coords.latitude);
@@ -25,6 +25,11 @@ export default function Home({ navigation }) {
       error => console.tron.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    getLoaction();
     setLoading(false);
   }, []);
 
@@ -40,6 +45,7 @@ export default function Home({ navigation }) {
       });
       setGas(data.data);
       setLoading(false);
+      setRefreshing(false);
     }
 
     if (latitude !== 0 && longitude !== 0) {
@@ -66,35 +72,41 @@ export default function Home({ navigation }) {
     }
   }, [latitude, longitude]);
 
+  function onRefresh() {
+    setRefreshing(true);
+    setGas([]);
+    setLatitude(0);
+    setLongitude(0);
+    getLoaction();
+  }
+
   return (
     <S.Container>
-      <ScrollView>
-        <Loader loading={isLoading} />
-        <Header />
-        <S.SpaceMargin>
-          <S.CardPromo>
-            <S.TextPromo>Últimas Ofertas</S.TextPromo>
-            <FlatList
-              data={companies}
-              horizontal={true}
-              renderItem={({ item }) => (
-                <PromoItem data={item} navigation={navigation} />
-              )}
-              keyExtractor={item => item.id.toString()}
-            />
-          </S.CardPromo>
-        </S.SpaceMargin>
-        <S.GasText>Postos Próximos</S.GasText>
-        {gas.map(item => {
-          return (
-            <GasItem
-              data={item}
-              key={item.id.toString()}
-              navigation={navigation}
-            />
-          );
-        })}
-      </ScrollView>
+      <Loader loading={isLoading} />
+      <Header />
+      <S.SpaceMargin>
+        <S.CardPromo>
+          <S.TextPromo>Últimas Ofertas</S.TextPromo>
+          <FlatList
+            data={companies}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <PromoItem data={item} navigation={navigation} />
+            )}
+            keyExtractor={item => item.id.toString()}
+          />
+        </S.CardPromo>
+      </S.SpaceMargin>
+      <S.GasText>Postos Próximos</S.GasText>
+      <FlatList
+        data={gas}
+        renderItem={({ item }) => (
+          <GasItem data={item} navigation={navigation} />
+        )}
+        keyExtractor={item => item.id.toString()}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
     </S.Container>
   );
 }
