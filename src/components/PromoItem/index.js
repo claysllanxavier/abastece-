@@ -13,7 +13,7 @@ const PromoItem = ({ data, big, navigation }) => {
         navigation.navigate('PromoDetail', { id: data.id });
       }}>
       <Container>
-        <ItemImage big={big} source={{ uri: data.url }} />
+        <ItemImage big={big} source={{ uri: data.url }} resizeMode="cover" />
       </Container>
     </TouchableWithoutFeedback>
   );

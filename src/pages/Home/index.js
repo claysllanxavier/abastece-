@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { FlatList } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '~/components/Header';
 import Loader from '~/components/Loader';
@@ -28,6 +29,7 @@ export default function Home({ navigation }) {
   }
 
   useEffect(() => {
+    SplashScreen.hide();
     setLoading(true);
     getLoaction();
     setLoading(false);
