@@ -1,6 +1,7 @@
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const fonts = {
+  title: hp('5%'),
   input: hp('3.5%'),
   regular: hp('2.5%'),
   medium: hp('2%'),
