@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import api from '~/services/api';
 import { Platform, Dimensions } from 'react-native';
-import { PROVIDER_GOOGLE } from 'react-native-maps';
+import { PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import Loader from '~/components/Loader';
+import MarkerView from '~/components/MarkerView';
 import { Container, Mapa } from './styles';
 
 let { width, height } = Dimensions.get('window');
@@ -20,10 +21,10 @@ export default function Maps() {
     latitudeDelta: LATITUDE_DELTA,
     longitudeDelta: LONGITUDE_DELTA,
   });
-  const [isLoading, setLoading] = useState(true);
+  const [gasStations, setGasStations] = useState([]);
+  const [tracksViewChanges, setTracksViewChanges] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     Geolocation.getCurrentPosition(
       position => {
         setRegion({
@@ -36,29 +37,54 @@ export default function Maps() {
       error => console.log(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    setLoading(false);
-    const watchID = Geolocation.watchPosition(position => {
-      setRegion({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      });
-    });
-    return () => Geolocation.clearWatch(watchID);
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await api.get('/gas', {
+        params: {
+          latitude: region.latitude,
+          longitude: region.longitude,
+          distance: 5,
+          limit: 10,
+          full: true,
+        },
+      });
+
+      setGasStations(data.data);
+    }
+
+    if (region.latitude !== 0 && region.longitude !== 0) {
+      fetchData();
+    }
+  }, [region.latitude, region.longitude]);
 
   return (
     <Container>
-      <Loader loading={isLoading} />
-      {!isLoading && (
-        <Mapa
-          provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
-          showsUserLocation={true}
-          region={region}
-          onRegionChangeComplete={item => setRegion(item)}
-        />
-      )}
+      <Mapa
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
+        showsUserLocation={true}
+        loadingEnabled={true}
+        region={region}
+        onRegionChangeComplete={item => setRegion(item)}>
+        {gasStations.map(gas => {
+          return (
+            <Mapa.Marker
+              coordinate={{
+                latitude: gas.latitude,
+                longitude: gas.longitude,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+              }}
+              key={gas.id.toString()}
+              tracksViewChanges={tracksViewChanges}>
+              <Callout>
+                <MarkerView data={gas} />
+              </Callout>
+            </Mapa.Marker>
+          );
+        })}
+      </Mapa>
     </Container>
   );
 }
