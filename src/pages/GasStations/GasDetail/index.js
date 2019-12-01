@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { Linking, ScrollView, Platform, Alert } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { Popup } from 'react-native-map-link';
 import { formatDistance } from 'date-fns';
@@ -7,6 +7,7 @@ import { pt } from 'date-fns/locale';
 import api from '~/services/api';
 import * as S from './styles';
 import Loader from '~/components/Loader';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function GasDetail({ navigation }) {
   const [gas, setGas] = useState([]);
@@ -25,7 +26,26 @@ export default function GasDetail({ navigation }) {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
       },
-      error => console.log(error.message),
+      error => {
+        console.tron.log(error.code);
+        switch (error.code) {
+          case 1:
+            if (Platform.OS === 'ios') {
+              Alert.alert(
+                '',
+                'Para localizar sua localização, ative a permissão para o aplicativo em Configurações - Privacidade - Localização',
+              );
+            } else {
+              Alert.alert(
+                '',
+                'Para localizar sua localização, ative a permissão para o aplicativo em Configurações - Aplicativos - Abastece + - Localização',
+              );
+            }
+            break;
+          default:
+            Alert.alert('', 'Erro ao detectar sua localização');
+        }
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
     setLoading(false);
@@ -62,6 +82,18 @@ export default function GasDetail({ navigation }) {
     });
   }
 
+  function makeCall() {
+    let phoneNumber = '';
+
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${gas.phone}`;
+    } else {
+      phoneNumber = `telprompt:${gas.phone}`;
+    }
+
+    Linking.openURL(phoneNumber);
+  }
+
   const renderFuel = item => {
     return (
       <S.Fuel key={item.id}>
@@ -75,7 +107,7 @@ export default function GasDetail({ navigation }) {
             <S.Real>R$</S.Real>
             <S.Price color={item.color}>
               {item.pivot.price.toString().substring(0, 4)}
-              <S.TinyPrice>
+              <S.TinyPrice color={item.color}>
                 {item.pivot.price.toString().substring(4, 5)}
               </S.TinyPrice>
             </S.Price>
@@ -111,18 +143,28 @@ export default function GasDetail({ navigation }) {
             <S.InfoBox>
               <S.Name>{gas.name}</S.Name>
               <S.Type>Bandeira: {gas.type.name}</S.Type>
-              <S.Phone>Contato: {gas.phone}</S.Phone>
               <S.Address>Endereço: {gas.address}</S.Address>
             </S.InfoBox>
           </S.Section>
         )}
         <S.Title>Preço dos Combustíveis</S.Title>
         {gas.fuels && gas.fuels.map(item => renderFuel(item))}
-        <S.Button onPress={handleGetDirections}>
-          <S.ButtonText>
-            Traçar Rota • {gas.distance && gas.distance.toFixed(2)} Km
-          </S.ButtonText>
-        </S.Button>
+        {gas.distance && (
+          <S.SectionButtons>
+            <S.Button onPress={handleGetDirections}>
+              <S.ButtonContainer>
+                <Icon name="map-marker" size={13} color="#ff5e62" />
+                <S.ButtonText>Rota • {gas.distance.toFixed(2)} km</S.ButtonText>
+              </S.ButtonContainer>
+            </S.Button>
+            <S.Button onPress={makeCall}>
+              <S.ButtonContainer>
+                <Icon name="phone" size={13} color="#ff5e62" />
+                <S.ButtonText>Telefonar</S.ButtonText>
+              </S.ButtonContainer>
+            </S.Button>
+          </S.SectionButtons>
+        )}
       </ScrollView>
     </S.Container>
   );

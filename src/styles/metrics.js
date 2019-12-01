@@ -6,6 +6,7 @@ export default {
   smallMargin: 5,
   baseMargin: 10,
   doubleBaseMargin: 20,
+  smallPadding: 10,
   basePadding: 20,
   doubleBasePadding: 40,
   baseRadius: 10,

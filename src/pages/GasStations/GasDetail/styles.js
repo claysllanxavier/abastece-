@@ -32,7 +32,6 @@ export const Name = styled.Text`
   font-weight: bold;
   font-size: ${fonts.regular}px;
   color: ${colors.black};
-  margin-bottom: ${metrics.baseMargin}px;
 `;
 
 export const Address = styled.Text`
@@ -56,7 +55,7 @@ export const Fuel = styled.View`
   border-style: solid;
   background: ${colors.white};
   padding: 3px 0px 3px 10px;
-  margin: ${metrics.doubleBaseMargin}px ${metrics.baseMargin}px 0px
+  margin: ${metrics.baseMargin}px ${metrics.baseMargin}px 0px
     ${metrics.baseMargin}px;
   border-radius: ${metrics.baseRadius}px;
   box-shadow: 5px 5px 8px rgba(68, 68, 6, 0.2);
@@ -66,7 +65,7 @@ export const Title = styled.Text`
   font-size: ${fonts.regular}px;
   font-weight: bold;
   text-align: center;
-  margin-top: ${metrics.baseMargin}px;
+  margin-top: ${metrics.smallMargin}px;
   color: ${colors.morderatered};
 `;
 
@@ -81,7 +80,7 @@ export const Box = styled.View`
 `;
 
 export const Info = styled.View`
-  padding: ${metrics.basePadding / 2}px;
+  padding: ${metrics.smallPadding}px;
   justify-content: center;
 `;
 
@@ -106,7 +105,8 @@ export const Price = styled.Text`
 
 export const TinyPrice = styled.Text`
   font-size: ${fonts.regular}px;
-  color: ${colors.dark};
+  color: ${props => props.color};
+  opacity: 0.7;
 `;
 
 export const ViewPrice = styled.View`
@@ -122,10 +122,22 @@ export const Information = styled.Text`
   margin-right: ${metrics.baseMargin}px;
 `;
 
+export const SectionButtons = styled.View`
+  flex-direction: row;
+`;
+
+export const ButtonContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 5;
+`;
+
 export const Button = styled.TouchableOpacity`
-  width: ${wp('95%')};
+  width: ${wp('45%')};
   height: 45;
-  padding: 10px;
+  padding: ${metrics.basePadding / 2}px;
   background-color: #fff;
   border-radius: 10px;
   margin: ${metrics.baseMargin}px;
@@ -136,7 +148,7 @@ export const Button = styled.TouchableOpacity`
 
 export const ButtonText = styled.Text`
   color: ${colors.morderatered};
-  text-align: center;
-  font-size: 15px;
-  padding-top: 3px;
+  font-size: 16px;
+  margin-left: 5px;
+  margin-top: -2.6;
 `;

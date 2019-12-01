@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '~/services/api';
-import { Platform, Dimensions } from 'react-native';
+import { Platform, Dimensions, Alert } from 'react-native';
 import { PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
 import MarkerView from '~/components/MarkerView';
 import { Container, Mapa } from './styles';
 
@@ -23,21 +22,6 @@ export default function Maps() {
   });
   const [gasStations, setGasStations] = useState([]);
   const [tracksViewChanges, setTracksViewChanges] = useState(true);
-
-  useEffect(() => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setRegion({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        });
-      },
-      error => console.log(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
-  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -64,8 +48,9 @@ export default function Maps() {
       <Mapa
         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
         showsUserLocation={true}
+        followsUserLocation={true}
         loadingEnabled={true}
-        region={region}
+        showsMyLocationButton={true}
         onRegionChangeComplete={item => setRegion(item)}>
         {gasStations.map(gas => {
           return (

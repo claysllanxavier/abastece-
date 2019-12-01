@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Platform, Alert } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '~/components/Header';
 import FooterList from '~/components/FooterList';
@@ -23,8 +23,27 @@ export default function GasStations({ navigation }) {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
       },
-      error => console.tron.log(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      error => {
+        console.tron.log(error.code);
+        switch (error.code) {
+          case 1:
+            if (Platform.OS === 'ios') {
+              Alert.alert(
+                '',
+                'Para localizar sua localização, ative a permissão para o aplicativo em Configurações - Privacidade - Localização',
+              );
+            } else {
+              Alert.alert(
+                '',
+                'Para localizar sua localização, ative a permissão para o aplicativo em Configurações - Aplicativos - Abastece + - Localização',
+              );
+            }
+            break;
+          default:
+            Alert.alert('', 'Erro ao detectar sua localização');
+        }
+      },
+      { enableHighAccuracy: true, timeout: 30000, maximumAge: 1000 },
     );
   }
 
