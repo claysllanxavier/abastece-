@@ -64,7 +64,13 @@ export default function GasDetail({ navigation }) {
         <S.Logo source={{ uri: company.url }} />
       </S.Section>
       {company.offers && (
-        <S.Image source={{ uri: company.offers[0].url }} borderRadius={7} />
+        <S.ImagContainer>
+          <S.Image
+            source={{ uri: company.offers[0].url }}
+            borderRadius={7}
+            resizeMode="cover"
+          />
+        </S.ImagContainer>
       )}
       <S.SectionButtons>
         <S.Button onPress={handleGetDirections}>

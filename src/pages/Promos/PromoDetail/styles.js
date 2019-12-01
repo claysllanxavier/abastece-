@@ -1,9 +1,6 @@
 import styled from 'styled-components/native';
 import { colors, metrics } from '~/styles';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   flex: 1;
@@ -24,11 +21,15 @@ export const Logo = styled.Image`
   border-radius: ${metrics.baseRadius};
 `;
 
+export const ImagContainer = styled.View`
+  width: 100%;
+  height: 400;
+`;
 export const Image = styled.Image`
   flex: 1;
-  margin: ${metrics.baseMargin}px;
-  height: undefined;
   width: undefined;
+  height: undefined;
+  margin: ${metrics.baseMargin}px;
 `;
 
 export const SectionButtons = styled.View`
