@@ -107,7 +107,7 @@ export default function Home({ navigation }) {
       <Header />
       <S.SpaceMargin>
         <S.CardPromo>
-          <S.TextPromo>Últimas Ofertas</S.TextPromo>
+          <S.TextPromo>Principais Ofertas</S.TextPromo>
           <FlatList
             data={companies}
             horizontal={true}

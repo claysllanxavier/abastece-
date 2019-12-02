@@ -48,9 +48,7 @@ export default function Maps() {
       <Mapa
         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
         showsUserLocation={true}
-        followsUserLocation={true}
         loadingEnabled={true}
-        showsMyLocationButton={true}
         onRegionChangeComplete={item => setRegion(item)}>
         {gasStations.map(gas => {
           return (
