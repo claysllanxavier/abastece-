@@ -16,6 +16,19 @@ export default function GasStations({ navigation }) {
   const [isLoading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [canAction, setCanAction] = useState(true);
+  const [fuel, setFuel] = useState(1);
+  const [sorting, setSorting] = useState('distance:asc');
+  const [fuels, setFuels] = useState([
+    { id: 1, name: 'Gasolina Comum', checked: true },
+    { id: 2, name: 'Álcool' },
+    { id: 3, name: 'Diesel Comum' },
+    { id: 4, name: 'Diesel S10' },
+    { id: 5, name: 'Gasolina Adtivada' },
+  ]);
+  const [sorts, setSorts] = useState([
+    { id: 'distance:asc', name: 'Mais Próximos', checked: true },
+    { id: 'distance:desc', name: 'Mais Distântes' },
+  ]);
 
   function getLoaction() {
     Geolocation.getCurrentPosition(
@@ -48,6 +61,24 @@ export default function GasStations({ navigation }) {
   }
 
   useEffect(() => {
+    let mockdata = fuels;
+    mockdata.map(item => {
+      item.id === fuel ? { item, checked: true } : { item, checked: false };
+    });
+    setFuels(mockdata);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fuel]);
+
+  useEffect(() => {
+    let mockdata = sorts;
+    mockdata.map(item => {
+      item.id === sorting ? { item, checked: true } : { item, checked: false };
+    });
+    setSorts(mockdata);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sorting]);
+
+  useEffect(() => {
     setLoading(true);
     getLoaction();
     setLoading(false);
@@ -67,6 +98,8 @@ export default function GasStations({ navigation }) {
           longitude: longitude,
           distance: 100,
           page: page,
+          fuel: fuel,
+          sort: sorting,
         },
       });
 
@@ -108,9 +141,55 @@ export default function GasStations({ navigation }) {
     }
   }
 
+  function onSelectFuel(selected) {
+    setFuel(selected);
+    setRefreshing(true);
+    setGasStations([]);
+    setPage(1);
+    setLatitude(0);
+    setLongitude(0);
+    getLoaction();
+  }
+
+  function onSelectSort(selected) {
+    setSorting(selected);
+    setRefreshing(true);
+    setGasStations([]);
+    setPage(1);
+    setLatitude(0);
+    setLongitude(0);
+    getLoaction();
+  }
+
   return (
     <S.Container>
       <Header fit={true} title="Postos" />
+      <S.BarFilter>
+        <S.Filter
+          isSelectSingle
+          colorTheme="#ff5e62"
+          popupTitle="Combustível"
+          showSearchBox={false}
+          cancelButtonText="Cancelar"
+          selectButtonText="Confirmar"
+          data={fuels}
+          onSelect={item => {
+            onSelectFuel(item[0]);
+          }}
+        />
+        <S.Filter
+          isSelectSingle
+          colorTheme="#ff5e62"
+          popupTitle="Ordenação"
+          showSearchBox={false}
+          cancelButtonText="Cancelar"
+          selectButtonText="Confirmar"
+          data={sorts}
+          onSelect={item => {
+            onSelectSort(item[0]);
+          }}
+        />
+      </S.BarFilter>
       <FlatList
         data={gasStations}
         renderItem={({ item }) => (

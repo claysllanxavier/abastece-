@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '~/services/api';
 import { Platform, Dimensions, Alert } from 'react-native';
-import { PROVIDER_GOOGLE, Callout } from 'react-native-maps';
+import { PROVIDER_GOOGLE, Callout, AnimatedRegion } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 import MarkerView from '~/components/MarkerView';
 import { Container, Mapa } from './styles';
 
@@ -21,7 +22,7 @@ export default function Maps() {
     longitudeDelta: LONGITUDE_DELTA,
   });
   const [gasStations, setGasStations] = useState([]);
-  const [tracksViewChanges, setTracksViewChanges] = useState(true);
+  const [tracksViewChanges] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -49,7 +50,8 @@ export default function Maps() {
         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
         showsUserLocation={true}
         loadingEnabled={true}
-        onRegionChangeComplete={item => setRegion(item)}>
+        onRegionChangeComplete={item => setRegion(item)}
+        showsMyLocationButton={true}>
         {gasStations.map(gas => {
           return (
             <Mapa.Marker

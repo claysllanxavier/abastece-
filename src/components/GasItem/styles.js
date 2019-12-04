@@ -57,13 +57,13 @@ export const Real = styled.Text`
 
 export const Price = styled.Text`
   font-size: ${fonts.input}px;
-  color: #ff4444;
+  color: ${props => (props.color ? props.color : '#ff4444')};
   font-weight: bold;
 `;
 
 export const TinyPrice = styled.Text`
   font-size: ${fonts.regular}px;
-  color: #ff4444;
+  color: ${props => (props.color ? props.color : '#ff4444')};
   opacity: 0.7;
 `;
 

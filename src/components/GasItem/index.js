@@ -34,9 +34,11 @@ const GasItem = ({ data, navigation }) => {
           </S.Box>
           <S.ViewPrice>
             <S.Real>R$</S.Real>
-            <S.Price>
+            <S.Price color={data.fuels[0].color}>
               {getPrice(data.fuels)[0]}
-              <S.TinyPrice>{getPrice(data.fuels)[1]}</S.TinyPrice>
+              <S.TinyPrice color={data.fuels[0].color}>
+                {getPrice(data.fuels)[1]}
+              </S.TinyPrice>
             </S.Price>
           </S.ViewPrice>
         </S.Row>
