@@ -169,6 +169,10 @@ export default function GasStations({ navigation }) {
           isSelectSingle
           colorTheme="#ff5e62"
           popupTitle="Combustível"
+          selectedTitlteStyle={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+          }}
           showSearchBox={false}
           cancelButtonText="Cancelar"
           selectButtonText="Confirmar"
@@ -180,6 +184,7 @@ export default function GasStations({ navigation }) {
         <S.Filter
           isSelectSingle
           colorTheme="#ff5e62"
+          selectedTitlteStyle={{ textAlign: 'center', fontWeight: 'bold' }}
           popupTitle="Ordenação"
           showSearchBox={false}
           cancelButtonText="Cancelar"
