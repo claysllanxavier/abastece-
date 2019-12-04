@@ -11,7 +11,7 @@ const GasItem = ({ data, navigation }) => {
     let tinyPrice = 0;
     if (fuels.length) {
       price = fuels[0].pivot.price.toString().substring(0, 4);
-      tinyPrice = fuels[0].pivot.price.toString().substring(4, 5);
+      tinyPrice = fuels[0].pivot.price.toString().substring(4, 5) || 0;
     }
     return [price, tinyPrice];
   };
