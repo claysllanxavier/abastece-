@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Platform, Alert } from 'react-native';
+import { FlatList, Platform, Alert, StyleSheet } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '~/components/Header';
 import FooterList from '~/components/FooterList';
 import * as S from './styles';
 import GasItem from '~/components/GasItem';
 import api from '~/services/api';
+
+const styles = StyleSheet.create({
+  select: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+});
 
 export default function GasStations({ navigation }) {
   const [gasStations, setGasStations] = useState([]);
@@ -17,7 +24,6 @@ export default function GasStations({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [canAction, setCanAction] = useState(true);
   const [fuel, setFuel] = useState(1);
-  const [sorting, setSorting] = useState('distance:asc');
   const [fuels, setFuels] = useState([
     { id: 1, name: 'Gasolina Comum', checked: true },
     { id: 2, name: 'Álcool' },
@@ -25,9 +31,20 @@ export default function GasStations({ navigation }) {
     { id: 4, name: 'Diesel S10' },
     { id: 5, name: 'Gasolina Adtivada' },
   ]);
+  const [sorting, setSorting] = useState('distance:asc');
   const [sorts, setSorts] = useState([
     { id: 'distance:asc', name: 'Mais Próximos', checked: true },
-    { id: 'distance:desc', name: 'Mais Distântes' },
+    { id: 'distance:desc', name: 'Mais Distantes' },
+    { id: 'price:asc', name: 'Mais Baratos' },
+    { id: 'price:desc', name: 'Mais Caros' },
+  ]);
+  const [type, setType] = useState(null);
+  const [types, setTypes] = useState([
+    { id: null, name: 'Todos', checked: true },
+    { id: 1, name: 'Petrobras' },
+    { id: 2, name: 'Ipiranga' },
+    { id: 3, name: 'Shell' },
+    { id: 4, name: 'Bandeira Branca' },
   ]);
 
   function getLoaction() {
@@ -79,6 +96,15 @@ export default function GasStations({ navigation }) {
   }, [sorting]);
 
   useEffect(() => {
+    let mockdata = types;
+    mockdata.map(item => {
+      item.id === type ? { item, checked: true } : { item, checked: false };
+    });
+    setTypes(mockdata);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
+
+  useEffect(() => {
     setLoading(true);
     getLoaction();
     setLoading(false);
@@ -100,6 +126,7 @@ export default function GasStations({ navigation }) {
           page: page,
           fuel: fuel,
           sort: sorting,
+          type: type,
         },
       });
 
@@ -161,6 +188,16 @@ export default function GasStations({ navigation }) {
     getLoaction();
   }
 
+  function onSelectType(selected) {
+    setType(selected);
+    setRefreshing(true);
+    setGasStations([]);
+    setPage(1);
+    setLatitude(0);
+    setLongitude(0);
+    getLoaction();
+  }
+
   return (
     <S.Container>
       <Header fit={true} title="Postos" />
@@ -169,10 +206,7 @@ export default function GasStations({ navigation }) {
           isSelectSingle
           colorTheme="#ff5e62"
           popupTitle="Combustível"
-          selectedTitlteStyle={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}
+          selectedTitlteStyle={styles.select}
           showSearchBox={false}
           cancelButtonText="Cancelar"
           selectButtonText="Confirmar"
@@ -184,7 +218,20 @@ export default function GasStations({ navigation }) {
         <S.Filter
           isSelectSingle
           colorTheme="#ff5e62"
-          selectedTitlteStyle={{ textAlign: 'center', fontWeight: 'bold' }}
+          popupTitle="Bandeira"
+          selectedTitlteStyle={styles.select}
+          showSearchBox={false}
+          cancelButtonText="Cancelar"
+          selectButtonText="Confirmar"
+          data={types}
+          onSelect={item => {
+            onSelectType(item[0]);
+          }}
+        />
+        <S.Filter
+          isSelectSingle
+          colorTheme="#ff5e62"
+          selectedTitlteStyle={styles.select}
           popupTitle="Ordenação"
           showSearchBox={false}
           cancelButtonText="Cancelar"

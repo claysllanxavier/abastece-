@@ -15,6 +15,7 @@ export const BarFilter = styled.View`
 export const Filter = styled(Select2)`
   border-radius: 5;
   background: #fff;
-  width: 49%;
-  margin-right: ${metrics.smallMargin}px;
+  width: 31%;
+  margin-right: ${metrics.baseMargin}px;
+  border: none;
 `;

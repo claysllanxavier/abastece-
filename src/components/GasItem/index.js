@@ -4,15 +4,13 @@ import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import PropTypes from 'prop-types';
 import * as S from './styles';
+import variables from '~/config/variables';
 
 const GasItem = ({ data, navigation }) => {
-  const getPrice = function(fuels) {
-    let price = parseFloat(0).toFixed(2);
-    let tinyPrice = 0;
-    if (fuels.length) {
-      price = fuels[0].pivot.price.toString().substring(0, 4);
-      tinyPrice = fuels[0].pivot.price.toString().substring(4, 5) || 0;
-    }
+  const getPrice = function(item) {
+    const price =
+      item.price.toString().substring(0, 4) || parseFloat(0).toFixed(2);
+    const tinyPrice = item.price.toString().substring(4, 5) || 0;
     return [price, tinyPrice];
   };
 
@@ -24,7 +22,9 @@ const GasItem = ({ data, navigation }) => {
       <S.Container>
         <S.Row>
           <S.Box>
-            {data.type && <S.Thumb source={{ uri: data.type.url }} />}
+            <S.Thumb
+              source={{ uri: `${variables.imageUrl}/images/${data.image}` }}
+            />
             <S.Info>
               <S.Gas>{data.name}</S.Gas>
               <S.Address numberOfLines={2}>
@@ -34,23 +34,20 @@ const GasItem = ({ data, navigation }) => {
           </S.Box>
           <S.ViewPrice>
             <S.Real>R$</S.Real>
-            <S.Price color={data.fuels[0].color}>
-              {getPrice(data.fuels)[0]}
-              <S.TinyPrice color={data.fuels[0].color}>
-                {getPrice(data.fuels)[1]}
-              </S.TinyPrice>
+            <S.Price color={data.color}>
+              {getPrice(data)[0]}
+              <S.TinyPrice color={data.color}>{getPrice(data)[1]}</S.TinyPrice>
             </S.Price>
           </S.ViewPrice>
         </S.Row>
         <S.Information>
-          {data.fuels.length &&
-            `Atualizado a ${formatDistance(
-              new Date(data.fuels[0].pivot.dt_updated),
-              new Date(),
-              {
-                locale: pt,
-              },
-            )}`}
+          {`Atualizado a ${formatDistance(
+            new Date(data.dt_updated),
+            new Date(),
+            {
+              locale: pt,
+            },
+          )}`}
         </S.Information>
       </S.Container>
     </TouchableWithoutFeedback>
@@ -63,6 +60,9 @@ GasItem.propTypes = {
     name: PropTypes.string.isRequired,
     distance: PropTypes.number.isRequired,
     address: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    dt_updated: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
   }).isRequired,
 };
 

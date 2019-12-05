@@ -108,7 +108,7 @@ export default function GasDetail({ navigation }) {
             <S.Price color={item.color}>
               {item.pivot.price.toString().substring(0, 4)}
               <S.TinyPrice color={item.color}>
-                {item.pivot.price.toString().substring(4, 5)}
+                {item.pivot.price.toString().substring(4, 5) || 0}
               </S.TinyPrice>
             </S.Price>
           </S.ViewPrice>
@@ -154,7 +154,7 @@ export default function GasDetail({ navigation }) {
             <S.Button onPress={handleGetDirections}>
               <S.ButtonContainer>
                 <Icon name="map-marker" size={13} color="#ff5e62" />
-                <S.ButtonText>Rota • {gas.distance.toFixed(2)} km</S.ButtonText>
+                <S.ButtonText>Rota</S.ButtonText>
               </S.ButtonContainer>
             </S.Button>
             <S.Button onPress={makeCall}>
