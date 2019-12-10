@@ -4,7 +4,7 @@ import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import PropTypes from 'prop-types';
 import * as S from './styles';
-import variables from '~/config/variables';
+import environment from '~/config/environment';
 
 const GasItem = ({ data, navigation }) => {
   const getPrice = function(item) {
@@ -23,7 +23,7 @@ const GasItem = ({ data, navigation }) => {
         <S.Row>
           <S.Box>
             <S.Thumb
-              source={{ uri: `${variables.imageUrl}/images/${data.image}` }}
+              source={{ uri: `${environment.imageUrl}/images/${data.image}` }}
             />
             <S.Info>
               <S.Gas>{data.name}</S.Gas>

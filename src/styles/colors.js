@@ -18,7 +18,7 @@ export default {
   whiteTransparent: 'rgba(225, 255, 255, 0.3)',
 
   //Color Schema
-  lightcyan: '#f4f6f6',
+  lightcyan: '#e8ebeb',
   lightred: '#ff9c91',
   morderatered: '#ff5e62',
   verydark: '#1c2938',
